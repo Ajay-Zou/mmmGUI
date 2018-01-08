@@ -65,5 +65,8 @@ switch eventObj.EventName
             set(handles.txtConnectedTo, 'String', 'Connected!', 'ForegroundColor', [0 153/255 0]);
         end
         
-    
+    case 'AlyxSend'
+        mmmObj.alyxInstance = eventObj.Data;
+        mmmObj.statusCallback(mmmObj, sprintf('Received alyx token for user %s', eventObj.Data.username));
+        
 end

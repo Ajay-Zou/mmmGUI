@@ -22,6 +22,7 @@ classdef MouseMovieManager < handle
         statusCallback = [];
         guiHandle = [];
         connectTimer = [];
+        alyxInstance = [];
     end
     
     methods (Static)                
@@ -183,6 +184,20 @@ classdef MouseMovieManager < handle
                 for f = 1:length(mmmObj.filePaths)
                     mmmObj.statusCallback(mmmObj, sprintf('  copying %s', mmmObj.filePaths{f}));
                     copyfile(mmmObj.filePaths{f}, p);
+                    subject = mmmObj.mouseName;
+                    if ~isempty(mmmObj.alyxInstance) && ~strcmp(subject,'default')
+                        try
+                            [~,fn,ext] = fileparts(mmmObj.filePaths{f});
+                            fullpath = fullfile(p,[fn ext]);
+                            if strcmp(ext, '.mj2')
+                                dsetType = [mmmObj.videoID 'Movie'];                               
+                                alyx.registerFile(subject,[],dsetType,fullpath,'zserver',mmmObj.alyxInstance);
+                            end
+                        catch ex
+                            warning('couldnt register files to alyx');
+                            disp(ex)
+                        end
+                    end
                 end
             end
             mmmObj.filePaths = {};
@@ -190,11 +205,11 @@ classdef MouseMovieManager < handle
         end
         
         function listenForStart(mmmObj)
-            events = {'ExpUpdate', 'ExpStarting', 'ExpStarted', 'ExpStopped', 'Connected', 'Disconnected'};
+            events = {'ExpStarting', 'ExpStarted', 'ExpStopped', 'Connected', 'Disconnected', 'AlyxSend'};
             anonListen = @(srcObj, eventObj) mmm.movieListener(srcObj, eventObj, mmmObj);
             
             for e = 1:length(events)
-                s{e} = srv.StimulusControl.create(mmm.getExpServerName());
+                s{e} = mmmComm.create(mmm.getExpServerName());
 %                 s{e}.connect(true);
                 addlistener(s{e}, events{e}, anonListen);
             end
