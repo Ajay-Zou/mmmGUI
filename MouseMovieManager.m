@@ -189,9 +189,15 @@ classdef MouseMovieManager < handle
                         try
                             [~,fn,ext] = fileparts(mmmObj.filePaths{f});
                             fullpath = fullfile(p,[fn ext]);
+                            if isfield(mmmObj.alyxInstance, 'subsessionURL')
+                                subsessionURL = mmmObj.alyxInstance.subsessionURL;
+                            else
+                                subsessionURL = [];
+                            end
                             if strcmp(ext, '.mj2')
                                 dsetType = [mmmObj.videoID 'Movie'];                               
-                                alyx.registerFile(subject,[],dsetType,fullpath,'zserver',mmmObj.alyxInstance);
+                                alyx.registerFile(subject,subsessionURL,dsetType,...
+                                    fullpath,'zserver',mmmObj.alyxInstance);
                             end
                         catch ex
                             warning('couldnt register files to alyx');
