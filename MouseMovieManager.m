@@ -196,8 +196,11 @@ classdef MouseMovieManager < handle
                             end
                             if strcmp(ext, '.mj2')
                                 dsetType = [mmmObj.videoID 'Movie'];                               
-                                alyx.registerFile(subject,subsessionURL,dsetType,...
-                                    fullpath,'zserver',mmmObj.alyxInstance);
+%                                 alyx.registerFile(subject,subsessionURL,dsetType,...
+%                                     fullpath,'zserver',mmmObj.alyxInstance);
+                                alyx.registerFile(fullpath, 'mj2', ...
+                                    subsessionURL, dsetType, ...
+                                    [], mmmObj.alyxInstance);
                             end
                         catch ex
                             warning('couldnt register files to alyx');
