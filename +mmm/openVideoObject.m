@@ -54,7 +54,11 @@ switch lower([rigName '_' videoID])
         vidObj.FramesPerTrigger = Inf;
         
     case 'zbad_face'
-        vidObj = videoinput('tisimaq_r2013', 1, 'Y800 (640x480)');
+        try
+            vidObj = videoinput('tisimaq_r2013', 1, 'Y800 (640x480)');
+        catch
+            vidObj = videoinput('tisimaq_r2013_64', 1, 'Y800 (640x480)');
+        end
         src = getselectedsource(vidObj);
         src.Strobe = 'Enable';
         delete(vidObj); clear vidObj src
