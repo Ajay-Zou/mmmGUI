@@ -101,7 +101,7 @@ classdef MouseMovieManager < handle
 %             p = fullfile(getLocalDir(), mmmObj.mouseName, ...
 %                 datestr(mmmObj.expDate, 'yyyy-mm-dd'), ...
 %                 num2str(mmmObj.expNum));
-            p = dat.expPath(mmmObj.mouseName, mmmObj.expDate, mmmObj.expNum, 'eyeTracking', 'local');
+            p = dat.expPath(mmmObj.mouseName, mmmObj.expDate, mmmObj.expNum, 'main', 'local');
 
         end
         
@@ -114,7 +114,7 @@ classdef MouseMovieManager < handle
 %             p = fullfile(getServerDir(), mmmObj.mouseName, ...
 %                 datestr(mmmObj.expDate, 'yyyy-mm-dd'), ...
 %                 num2str(mmmObj.expNum));         
-            p = dat.expPath(mmmObj.mouseName, mmmObj.expDate, mmmObj.expNum, 'eyeTracking', 'master');
+            p = dat.expPath(mmmObj.mouseName, mmmObj.expDate, mmmObj.expNum, 'main', 'master');
 
         end
         
