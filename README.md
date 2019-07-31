@@ -40,6 +40,8 @@ switch [rigName '_' videoID]
         vidObj.LoggingMode = 'disk';
 ```
 
+Note that using a number instead of a name for deviceID into videoinput can be trouble: different adapters can use different numbers (e.g. tisimaq_r2013_64 face = 1 eye = 2, winvideo face = 2 eye = 1)
+
 ### Starting acquisition
 
 - Run mmmGUI. 
