@@ -104,8 +104,11 @@ function pshListen_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 if handles.isListening
-    for s = 1:length(handles.mmmObj.expServerObj)
-        handles.mmmObj.expServerObj{s}.disconnect();
+    try
+        for s = 1:length(handles.mmmObj.expServerObj)
+            handles.mmmObj.expServerObj{s}.disconnect();
+        end
+    catch
     end
     handles.mmmObj.expServerObj = [];
     stop(handles.mmmObj.connectTimer)

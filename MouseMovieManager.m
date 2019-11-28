@@ -30,7 +30,7 @@ classdef MouseMovieManager < handle
         function mmmObj = MouseMovieManager(videoID)
             % constructor given config specification
             if nargin>0
-                mmmObj = MouseMovieManager;
+%                 mmmObj = MouseMovieManager;
                 %mmmObj.mouseName = mouseName;
                 mmmObj.videoID = videoID;
                 mmmObj.vidObj = mmm.openVideoObject(videoID);
@@ -64,8 +64,10 @@ classdef MouseMovieManager < handle
             stoppreview(v)
             v.ROIPosition = [0 0 v.VideoResolution];
             hPreview = preview(v);
-            h = imrect(get(hPreview, 'Parent'));
-            pos = wait(h);
+%             h = imrect(get(hPreview, 'Parent'));
+            h = drawrectangle(get(hPreview,'Parent'));
+            pos = h.Position;
+%             pos = wait(h);
             stoppreview(v)
             v.ROIPosition = pos;
             set(h, 'visible', 'off');
